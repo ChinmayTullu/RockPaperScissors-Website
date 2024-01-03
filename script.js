@@ -1,11 +1,15 @@
 let userScore=0;
 let compScore=0;
+let userScoreMsg=document.querySelector("#user-score");
+let compScoreMsg=document.querySelector("#comp-score");
 let displayChoices=document.querySelector("#display-choices-section");
 const choices=document.querySelectorAll(".choice");
 const msg=document.querySelector(".msg");
 
+
 choices.forEach((choice) => {
     choice.addEventListener("click", () => {
+        displayChoices.innerHTML="";
         let userChoice=choice.getAttribute("id");
         gameLogic(choice, userChoice);
     });
@@ -55,18 +59,19 @@ let checkWinner=(userWin) => {
     {
         msg.innerText="You Win! 😎";
         msg.style.backgroundColor="green";
+        userScore++;
+        userScoreMsg.innerText=userScore;
     }
     else
     {
         msg.innerText="You Lose ☹️";
         msg.style.backgroundColor="red";
+        compScore++;
+        compScoreMsg.innerText=compScore;
     }
 }
 
 let displayCompChoice=(compChoice) => {
-    // if(displayChoices.childNodes[1]!==undefined)
-    //     (displayChoices.childNodes[1].classList.add("hide"));
-
     let a=choices[0].childNodes[1].cloneNode(true);
     let b=choices[1].childNodes[1].cloneNode(true);
     let c=choices[2].childNodes[1].cloneNode(true);
@@ -86,15 +91,10 @@ let displayCompChoice=(compChoice) => {
         displayChoices.prepend(c);
         c.setAttribute("class", "display-choices");
     }
-    
 }
 
 let displayUserChoice=(choice) => {
-    // if(displayChoices.childNodes[2]!==undefined)
-    //     (displayChoices.childNodes[2].classList.add("hide"));
-
     let userChoiceDisplay=choice.childNodes[1].cloneNode(true)
     displayChoices.prepend(userChoiceDisplay);
     userChoiceDisplay.setAttribute("class", "display-choices");
-    console.log(displayChoices.childNodes[0]);
 }
